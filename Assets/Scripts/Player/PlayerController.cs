@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
             rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            Debug.Log("Jump");
         }
     }
 
@@ -102,16 +103,16 @@ public class PlayerController : MonoBehaviour
         Ray[] rays = new Ray[4]
         {
             //transform.up * 0.01f를 한 이유는 플레이어가 그라운드보다 및에 있을 경우를 대비해 살짝 올려뒀다
-            new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
-            new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
-            new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
-            new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
+            new Ray(transform.position + (transform.forward * 0.5f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.5f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.5f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.5f) + (transform.up * 0.01f), Vector3.down)
         };
 
         for (int i = 0; i < rays.Length; i++)
         {
             //Ray, 길이, 레이마스크
-            if (Physics.Raycast(rays[i], 0.01f, groundLayerMask)) return true;
+            if (Physics.Raycast(rays[i], 0.015f, groundLayerMask)) return true;
         }
 
         return false;

@@ -1,0 +1,26 @@
+using UnityEngine;
+
+public class ItemObject : MonoBehaviour, IInteractable
+{
+    public ItemData data;
+
+    private void Start()
+    {
+        //CharacterManager.Instance.Player.addItem += 
+    }
+
+    public string GetInteractPrompt()
+    {
+        string str = $"{data.displayName}\n{data.description}";
+        return str;
+    }
+
+    public void OnInteract()
+    {
+        CharacterManager.Instance.Player.itemData = data;
+        CharacterManager.Instance.Player.addItem?.Invoke();
+        Destroy(gameObject);
+    }
+
+
+}
